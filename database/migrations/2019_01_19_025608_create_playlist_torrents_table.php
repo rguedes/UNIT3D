@@ -16,9 +16,11 @@ class CreatePlaylistTorrentsTable extends Migration
         Schema::create('playlist_torrents', function (Blueprint $table) {
             $table->integer('playlist_id')->unsigned();
             $table->integer('torrent_id')->unsigned();
+            $table->integer('user_id')->unsigned();
 
             $table->foreign('playlist_id')->references('id')->on('playlists');
             $table->foreign('torrent_id')->references('id')->on('torrents');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->primary(['playlist_id', 'torrent_id']);
         });
