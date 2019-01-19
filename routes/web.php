@@ -306,6 +306,18 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/addimage', 'ImageController@add')->name('add_image_to_album');
         Route::get('/deleteimage/{id}', 'ImageController@destroy')->name('delete_image');
         Route::get('/image/download/{id}', 'ImageController@download')->name('image_download');
+
+        // Playlist System
+        Route::get('/playlists', 'PlaylistController@index')->name('playlists.index');
+        Route::get('/playlists/create', 'PlaylistController@create')->name('playlists.create');
+        Route::post('/playlists', 'PlaylistController@store')->name('playlists.store');
+        Route::get('/playlists/{id}', 'PlaylistController@show')->name('playlists.show');
+        Route::get('/playlists/{id}/edit', 'PlaylistController@edit')->name('playlists.edit');
+        Route::post('/playlists/{id}', 'PlaylistController@update')->name('playlists.update');
+        Route::get('/playlists/{id}', 'PlaylistController@destroy')->name('playlists.destroy');
+
+        Route::post('/playlists/attach', 'PlaylistTorrentController@store')->name('playlists.store');
+        Route::get('/playlists/{id}/detach', 'PlaylistTorrentController@destroy')->name('playlists.destroy');
     });
 
     /*
