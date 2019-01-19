@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PlaylistTorrent;
 use Image;
 use App\Playlist;
 use Brian2694\Toastr\Toastr;
@@ -26,7 +27,7 @@ class PlaylistController extends Controller
     private $toastr;
 
     /**
-     * ContactController Constructor.
+     * PlaylistController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -36,7 +37,7 @@ class PlaylistController extends Controller
     }
 
     /**
-     * Show All Playlists.
+     * Display All Playlists.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -48,7 +49,7 @@ class PlaylistController extends Controller
     }
 
     /**
-     * Playlist Create Form.
+     * Show Playlist Create Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -58,7 +59,7 @@ class PlaylistController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store A New Playlist.
      *
      * @param  \Illuminate\Http\Request  $request
      *
@@ -103,7 +104,7 @@ class PlaylistController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show A Playlist.
      *
      * @param  \App\Playlist  $id
      *
@@ -117,7 +118,7 @@ class PlaylistController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show Playlist Update Form.
      *
      * @param  \App\Playlist  $id
      *
@@ -134,7 +135,7 @@ class PlaylistController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update A Playlist.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Playlist  $id
@@ -182,7 +183,7 @@ class PlaylistController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete A Playlist.
      *
      * @param  \App\Playlist  $id
      *
@@ -191,7 +192,7 @@ class PlaylistController extends Controller
     public function destroy($id)
     {
         $user = auth()->user();
-        $playlist = Playlist::findOrFail($id);
+        $playlist = PlaylistTorrent::findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id == $playlist->user_id, 403);
 
