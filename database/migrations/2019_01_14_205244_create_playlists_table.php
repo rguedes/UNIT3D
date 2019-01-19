@@ -24,6 +24,8 @@ class CreatePlaylistsTable extends Migration
             $table->string('cover_image');
             $table->integer('position');
             $table->boolean('is_private')->default(0)->index();
+            $table->boolean('is_pinned')->default(0)->index();
+            $table->boolean('is_featured')->default(0)->index();
             $table->timestamps();
         });
     }
