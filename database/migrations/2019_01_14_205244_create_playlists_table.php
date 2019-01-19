@@ -22,7 +22,7 @@ class CreatePlaylistsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('cover_image');
-            $table->integer('position');
+            $table->integer('position')->nullable();
             $table->boolean('is_private')->default(0)->index();
             $table->boolean('is_pinned')->default(0)->index();
             $table->boolean('is_featured')->default(0)->index();
