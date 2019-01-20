@@ -28,7 +28,7 @@
                 @foreach($playlists as $playlist)
                 <div class="col-12 col-md-3 col-lg-3 col-xl-3">
                     <div class="item-playlist-container-playlist">
-                        <a href="#"><img src="{{ url('files/img/' . $playlist->cover_image) }}" alt="Listing"></a>
+                        <a href="{{ route('playlists.show', ['id' => $playlist->id]) }}"><img src="{{ url('files/img/' . $playlist->cover_image) }}" alt="Listing"></a>
                         <div class="item-playlist-text-playlist">
                             @if ($playlist->user->image != null)
                                 <img src="{{ url('files/img/' . $playlist->user->image) }}" alt="{{ $playlist->user->username }}">

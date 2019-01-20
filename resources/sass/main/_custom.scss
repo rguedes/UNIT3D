@@ -9401,7 +9401,8 @@ img.emojione {
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, .08);
     box-shadow: 0 3px 8px rgba(0, 0, 0, .06);
-    margin-bottom: 30px
+    margin-bottom: 30px;
+    background: #0f0f0f;
 }
 
 .item-playlist-container-playlist img {
@@ -9464,7 +9465,7 @@ section.inner_content.header {
     background: rgba(0, 0, 0, 0.35);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: 50% 50%
+    background-position: 50% 0%
 }
 
 section.inner_content.header div.single_column {
@@ -9540,7 +9541,11 @@ ul.list_menu_bar li.account a {
 ul.list_menu_bar li a.button.white {
     background-color: #fff;
     border-color: #fff;
-    color: #00d573
+    color: #00d573;
+}
+
+a.button.white {
+    margin-top: 0;
 }
 
 ul.list_menu_bar li a.button span.glyphicons {

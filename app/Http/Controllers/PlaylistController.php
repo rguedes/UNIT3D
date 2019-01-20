@@ -113,7 +113,7 @@ class PlaylistController extends Controller
      */
     public function show($id)
     {
-        $playlist = Playlist::with('torrents')->findOrFail($id);
+        $playlist = Playlist::with(['torrents'])->findOrFail($id);
 
         $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
         $meta = Torrent::select(['imdb'])->findOrFail($random->torrent_id);
@@ -122,7 +122,10 @@ class PlaylistController extends Controller
             $movie = $client->scrape('movie', 'tt'.$meta->imdb);
         }
 
-        return view('playlist.show', ['playlist' => $playlist, 'movie' => $movie]);
+        $playlist_torrents = PlaylistTorrent::where('playlist_id', '=', $id)->select('torrent_id')->get()->toArray();
+        $torrents = Torrent::whereIn('id', $playlist_torrents)->get();
+
+        return view('playlist.show', ['playlist' => $playlist, 'movie' => $movie, 'torrents' => $torrents]);
     }
 
     /**
