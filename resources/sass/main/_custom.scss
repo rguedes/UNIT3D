@@ -9328,3 +9328,45 @@ img.emojione {
 .g-recaptcha {
     display: inline-block;
 }
+
+// Playlists
+.item-playlist-container-playlist {
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .08);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .06);
+    margin-bottom: 30px
+}
+
+.item-playlist-container-playlist img {
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px
+}
+
+.item-playlist-text-playlist {
+    text-align: center;
+    position: relative;
+    padding: 38px 24px 20px
+}
+
+.item-playlist-text-playlist img {
+    border-radius: 80px;
+    width: 46px;
+    margin-left: -23px;
+    border: 3px solid #fff;
+    position: absolute;
+    top: -22px;
+    left: 50%
+}
+
+.item-playlist-text-playlist h5 {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 6px
+}
+
+.item-playlist-text-playlist h6 {
+    font-weight: 400;
+    color: #adadad;
+    font-size: 12px
+}
