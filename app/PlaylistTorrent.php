@@ -17,5 +17,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class PlaylistTorrent extends Model
 {
-    //
+    /**
+     * Indicates If The Model Should Be Timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
+     * Has Many Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function torrents()
+    {
+        return $this->hasMany(Torrent::class, 'id');
+    }
 }

@@ -13,9 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use App\PlaylistTorrent;
 use Image;
+use App\Torrent;
 use App\Playlist;
+use App\PlaylistTorrent;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,7 @@ class PlaylistController extends Controller
      */
     public function index()
     {
-        $playlists = Playlist::withCount('torrents')->latest()->paginate(25);
+        $playlists = Playlist::with('user')->withCount('torrents')->where('is_private', '=', 0)->latest()->paginate(25);
 
         return view('playlist.index', ['playlists' => $playlists]);
     }
@@ -92,13 +93,13 @@ class PlaylistController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('playlist.create')
+            return redirect()->route('playlists.create')
                 ->withInput()
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $playlist->save();
 
-            return redirect()->route('playlist.show', ['id' => $playlist->id])
+            return redirect()->route('playlists.show', ['id' => $playlist->id])
                 ->with($this->toastr->success('Your playlist has successfully published!', 'Yay!', ['options']));
         }
     }
@@ -114,7 +115,14 @@ class PlaylistController extends Controller
     {
         $playlist = Playlist::with('torrents')->findOrFail($id);
 
-        return view('playlist.show', ['playlist' => $playlist]);
+        $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
+        $meta = Torrent::select(['imdb'])->findOrFail($random->torrent_id);
+        if ($random) {
+            $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+            $movie = $client->scrape('movie', 'tt'.$meta->imdb);
+        }
+
+        return view('playlist.show', ['playlist' => $playlist, 'movie' => $movie]);
     }
 
     /**
@@ -171,13 +179,13 @@ class PlaylistController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('playlist.edit', ['id' => $playlist->id])
+            return redirect()->route('playlists.edit', ['id' => $playlist->id])
                 ->withInput()
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $playlist->save();
 
-            return redirect()->route('playlist.show', ['id' => $playlist->id])
+            return redirect()->route('playlists.show', ['id' => $playlist->id])
                 ->with($this->toastr->success('Your playlist has successfully published!', 'Yay!', ['options']));
         }
     }
@@ -198,7 +206,7 @@ class PlaylistController extends Controller
 
         $playlist->delete();
 
-        return redirect()->route('playlist.index')
-            ->with($this->toastr->success('RSS Feed Deleted!', 'Yay!', ['options']));
+        return redirect()->route('playlists.index')
+            ->with($this->toastr->success('Playlist Deleted!', 'Yay!', ['options']));
     }
 }

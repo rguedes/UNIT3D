@@ -316,12 +316,12 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/playlists/create', 'PlaylistController@create')->name('playlists.create');
         Route::post('/playlists', 'PlaylistController@store')->name('playlists.store');
         Route::get('/playlists/{id}', 'PlaylistController@show')->name('playlists.show');
-        Route::get('/playlists/{id}/edit', 'PlaylistController@edit')->name('playlists.edit');
-        Route::post('/playlists/{id}', 'PlaylistController@update')->name('playlists.update');
-        Route::get('/playlists/{id}', 'PlaylistController@destroy')->name('playlists.destroy');
+        //Route::get('/playlists/{id}/edit', 'PlaylistController@edit')->name('playlists.edit');
+        //Route::post('/playlists/{id}', 'PlaylistController@update')->name('playlists.update');
+        //Route::get('/playlists/{id}', 'PlaylistController@destroy')->name('playlists.destroy');
 
-        Route::post('/playlists/attach', 'PlaylistTorrentController@store')->name('playlists.store');
-        Route::get('/playlists/{id}/detach', 'PlaylistTorrentController@destroy')->name('playlists.destroy');
+        Route::post('/playlists/attach', 'PlaylistTorrentController@store')->name('playlists.attach');
+        Route::get('/playlists/{id}/detach', 'PlaylistTorrentController@destroy')->name('playlists.detach');
     });
 
     /*
