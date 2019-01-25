@@ -56,6 +56,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\SetCache::class,
         \App\Console\Commands\TestMailSettings::class,
         \App\Console\Commands\FetchGenres::class,
+        \App\Console\Commands\FetchPersons::class,
     ];
 
     /**
