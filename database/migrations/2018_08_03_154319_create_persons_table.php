@@ -33,6 +33,7 @@ class CreatePersonsTable extends Migration
             $table->string('place_of_birth')->nullable();
             $table->string('photo')->nullable();
             $table->bigInteger('tmdb_id')->unsigned()->unique()->index();
+            $table->bigInteger('imdb_id')->unsigned()->unique()->index();
             $table->boolean('aotm')->default(0);
             $table->timestamps();
         });
