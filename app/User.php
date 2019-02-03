@@ -487,6 +487,55 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Many Authentications.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function authentications()
+    {
+        return $this->hasMany(Authentication::class);
+    }
+
+    /**
+     * Has Many Logins.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function logins()
+    {
+        $relation = $this->authentications();
+        $relation->where('type', Authentication::TYPE_LOGIN);
+
+        return $relation;
+    }
+
+    /**
+     * Has Many Failed Logins.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function fails()
+    {
+        $relation = $this->authentications();
+        $relation->where('type', Authentication::TYPE_FAILED);
+
+        return $relation;
+    }
+
+    /**
+     * Has Many Lockouts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function lockouts()
+    {
+        $relation = $this->authentications();
+        $relation->where('type', Authentication::TYPE_LOCKOUT);
+
+        return $relation;
+    }
+
+    /**
      * Get the Users username as slug.
      *
      * @return string
