@@ -42,7 +42,7 @@ class Device extends Model
     }
 
     /**
-     * Has Many Logins.
+     * Has Many Authentications.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
