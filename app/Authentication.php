@@ -17,6 +17,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Authentication extends Model
 {
+    /** @var string */
+    const TYPE_LOGIN = 'login';
+    const TYPE_FAILED = 'failed';
+    const TYPE_LOCKOUT = 'lockout';
+
     /**
      * The Attributes That Should Be Casted To Native Types.
      *
