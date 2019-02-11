@@ -64,6 +64,7 @@
                         </div>
                     </div>
                 </div>
+
                 @if ($torrentRequest->category->meta == 1)
                     <div class="movie-wrapper">
                         <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
