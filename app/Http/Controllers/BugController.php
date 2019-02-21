@@ -62,6 +62,6 @@ class BugController extends Controller
         Mail::to($user->email, $user->username)->send(new Bug($input));
 
         return redirect()->route('home')
-        ->with($this->toastr->success('Your Bug Was Successfully Sent!', 'Yay!', ['options']));
+        ->with($this->toastr->success('Your Bug Was Successfully Sent!', trans('toastr.success'), ['options']));
     }
 }

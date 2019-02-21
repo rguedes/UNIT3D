@@ -64,7 +64,7 @@ class ReportController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $this->report->create([
                 'type' => 'Request',
@@ -81,7 +81,7 @@ class ReportController extends Controller
             \LogActivity::addToLog("Member {$reported_by->username} has made a new Torrent Request report.");
 
             return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->success('Your report has been successfully sent', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your report has been successfully sent', trans('toastr.success'), ['options']));
         }
     }
 
@@ -106,7 +106,7 @@ class ReportController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('torrent', ['slug' => $slug, 'id' => $id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $this->report->create([
                 'type' => 'Torrent',
@@ -123,7 +123,7 @@ class ReportController extends Controller
             \LogActivity::addToLog("Member {$reported_by->username} has made a new Torrent report.");
 
             return redirect()->route('torrent', ['slug' => $slug, 'id' => $id])
-                ->with($this->toastr->success('Your report has been successfully sent', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your report has been successfully sent', trans('toastr.success'), ['options']));
         }
     }
 
@@ -147,7 +147,7 @@ class ReportController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('profile', ['username' => $username, 'id' => $id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $this->report->create([
                 'type' => 'User',
@@ -164,7 +164,7 @@ class ReportController extends Controller
             \LogActivity::addToLog("Member {$reported_by->username} has made a new User report.");
 
             return redirect()->route('profile', ['username' => $username, 'id' => $id])
-                ->with($this->toastr->success('Your report has been successfully sent', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your report has been successfully sent', trans('toastr.success'), ['options']));
         }
     }
 }

@@ -87,7 +87,7 @@ class LoginController extends Controller
             $request->session()->invalidate();
 
             return redirect()->route('login')
-                ->with($this->toastr->error('This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', trans('toastr.error'), ['options']));
         }
 
         if ($user->group_id == $bannedGroup->id) {
@@ -95,7 +95,7 @@ class LoginController extends Controller
             $request->session()->invalidate();
 
             return redirect()->route('login')
-                ->with($this->toastr->error('This account is Banned!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('This account is Banned!', trans('toastr.error'), ['options']));
         }
 
         if ($user->group_id == $disabledGroup->id) {

@@ -95,7 +95,7 @@ class AlbumController extends Controller
 
         if ($omdb === null || $omdb === false) {
             return redirect()->route('create_album_form')
-                ->with($this->toastr->error('Bad IMDB Request!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Bad IMDB Request!', trans('toastr.error'), ['options']));
         }
 
         $album = new Album();
@@ -121,12 +121,12 @@ class AlbumController extends Controller
         if ($v->fails()) {
             return redirect()->route('create_album_form')
                 ->withInput()
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $album->save();
 
             return redirect()->route('show_album', ['id' => $album->id])
-                ->with($this->toastr->success('Your album has successfully published!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your album has successfully published!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -146,6 +146,6 @@ class AlbumController extends Controller
         $album->delete();
 
         return redirect()->route('home')
-            ->with($this->toastr->success('Album has successfully been deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Album has successfully been deleted', trans('toastr.success'), ['options']));
     }
 }

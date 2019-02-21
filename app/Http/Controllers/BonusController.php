@@ -242,18 +242,18 @@ class BonusController extends Controller
 
             if (! $flag) {
                 return redirect()->route('bonus_store')
-                    ->with($this->toastr->error('Bonus Exchange Failed!', 'Whoops!', ['options']));
+                    ->with($this->toastr->error('Bonus Exchange Failed!', trans('toastr.error'), ['options']));
             }
 
             $user->seedbonus -= $itemCost;
             $user->save();
         } else {
             return redirect()->route('bonus_store')
-                ->with($this->toastr->error('Bonus Exchange Failed!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Bonus Exchange Failed!', trans('toastr.error'), ['options']));
         }
 
         return redirect()->route('bonus_store')
-            ->with($this->toastr->success('Bonus Exchange Successful', 'Yay!', ['options']));
+            ->with($this->toastr->success('Bonus Exchange Successful', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -346,7 +346,7 @@ class BonusController extends Controller
 
             if (! $recipient || $recipient->id == $user->id) {
                 return redirect('/bonus/store')
-                    ->with($this->toastr->error('Unable to find specified user', 'Whoops!', ['options']));
+                    ->with($this->toastr->error('Unable to find specified user', trans('toastr.error'), ['options']));
             }
 
             $value = $request->input('bonus_points');
@@ -381,11 +381,11 @@ class BonusController extends Controller
 
             if ($dest == 'profile') {
                 return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
-                    ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
+                    ->with($this->toastr->success('Gift Sent', trans('toastr.success'), ['options']));
             }
 
             return redirect()->route('bonus_gift')
-                ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
+                ->with($this->toastr->success('Gift Sent', trans('toastr.success'), ['options']));
         } else {
             $v = validator($request->all(), [
                 'to_username' => 'required|exists:users,username|max:180',
@@ -396,21 +396,21 @@ class BonusController extends Controller
 
                 if (! $recipient || $recipient->id == $user->id) {
                     return redirect('/bonus/gift')
-                        ->with($this->toastr->error('Unable to find specified user', 'Whoops!', ['options']));
+                        ->with($this->toastr->error('Unable to find specified user', trans('toastr.error'), ['options']));
                 }
 
                 if ($dest == 'profile') {
                     return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
-                        ->with($this->toastr->error('You Must Enter An Amount And Message!', 'Whoops!', ['options']));
+                        ->with($this->toastr->error('You Must Enter An Amount And Message!', trans('toastr.error'), ['options']));
                 }
 
                 return redirect()->route('bonus_gift')
-                    ->with($this->toastr->error('You Must Enter An Amount And Message!', 'Whoops!', ['options']));
+                    ->with($this->toastr->error('You Must Enter An Amount And Message!', trans('toastr.error'), ['options']));
             }
         }
 
         return redirect('/bonus/gift')
-            ->with($this->toastr->error('Unable to find specified user', 'Whoops!', ['options']));
+            ->with($this->toastr->error('Unable to find specified user', trans('toastr.error'), ['options']));
     }
 
     /**
@@ -431,15 +431,15 @@ class BonusController extends Controller
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('Your To Broke To Tip The Uploader!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your To Broke To Tip The Uploader!', trans('toastr.error'), ['options']));
         }
         if ($user->id == $torrent->user_id) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('You Cannot Tip Yourself!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Tip Yourself!', trans('toastr.error'), ['options']));
         }
         if ($tip_amount <= 0) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('You Cannot Tip A Negative Amount!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Tip A Negative Amount!', trans('toastr.error'), ['options']));
         }
         $uploader->seedbonus += $tip_amount;
         $uploader->save();
@@ -462,7 +462,7 @@ class BonusController extends Controller
         }
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-            ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Your Tip Was Successfully Applied!', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -489,15 +489,15 @@ class BonusController extends Controller
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
             return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
-                ->with($this->toastr->error('You Are To Broke To Tip The Poster!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Are To Broke To Tip The Poster!', trans('toastr.error'), ['options']));
         }
         if ($user->id == $poster->id) {
             return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
-                ->with($this->toastr->error('You Cannot Tip Yourself!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Tip Yourself!', trans('toastr.error'), ['options']));
         }
         if ($tip_amount <= 0) {
             return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
-                ->with($this->toastr->error('You Cannot Tip A Negative Amount!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Tip A Negative Amount!', trans('toastr.error'), ['options']));
         }
         $poster->seedbonus += $tip_amount;
         $poster->save();
@@ -518,7 +518,7 @@ class BonusController extends Controller
         $poster->notify(new NewPostTip('forum', $user->username, $tip_amount, $post));
 
         return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
-            ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Your Tip Was Successfully Applied!', trans('toastr.success'), ['options']));
     }
 
     /**

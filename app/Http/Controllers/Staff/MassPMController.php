@@ -69,7 +69,7 @@ class MassPMController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('massPM')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             foreach ($users as $user) {
                 $this->dispatch(new ProcessMassPM($sender_id, $user->id, $subject, $message));
@@ -79,7 +79,7 @@ class MassPMController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has sent a MassPM.");
 
             return redirect()->route('massPM')
-                ->with($this->toastr->success('MassPM Sent', 'Yay!', ['options']));
+                ->with($this->toastr->success('MassPM Sent', trans('toastr.success'), ['options']));
         }
     }
 }

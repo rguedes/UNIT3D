@@ -93,12 +93,12 @@ class ArticleController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $article->save();
 
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->success('Your article has successfully published!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your article has successfully published!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -152,12 +152,12 @@ class ArticleController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $article->save();
 
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->success('Your article changes have successfully published!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your article changes have successfully published!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -175,6 +175,6 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->route('staff_article_index')
-            ->with($this->toastr->success('Article has successfully been deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Article has successfully been deleted', trans('toastr.success'), ['options']));
     }
 }

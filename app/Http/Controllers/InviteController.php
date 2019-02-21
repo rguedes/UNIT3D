@@ -50,15 +50,15 @@ class InviteController extends Controller
 
         if (config('other.invite-only') == false) {
             return redirect()->route('home')
-            ->with($this->toastr->error('Invitations Are Disabled Due To Open Registration!', 'Whoops!', ['options']));
+            ->with($this->toastr->error('Invitations Are Disabled Due To Open Registration!', trans('toastr.error'), ['options']));
         }
         if ($user->can_invite == 0) {
             return redirect()->route('home')
-            ->with($this->toastr->error('Your Invite Rights Have Been Revoked!!!', 'Whoops!', ['options']));
+            ->with($this->toastr->error('Your Invite Rights Have Been Revoked!!!', trans('toastr.error'), ['options']));
         }
         if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
             return redirect()->route('home')
-                ->with($this->toastr->error('Invites are currently disabled for your group.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Invites are currently disabled for your group.', trans('toastr.error'), ['options']));
         }
 
         return view('user.invite', ['user' => $user, 'route' => 'invite']);
@@ -78,19 +78,19 @@ class InviteController extends Controller
 
         if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
             return redirect()->route('home')
-                ->with($this->toastr->error('Invites are currently disabled for your group.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Invites are currently disabled for your group.', trans('toastr.error'), ['options']));
         }
 
         if ($user->invites <= 0) {
             return redirect()->route('invite')
-                ->with($this->toastr->error('You do not have enough invites!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You do not have enough invites!', trans('toastr.error'), ['options']));
         }
 
         $exist = Invite::where('email', '=', $request->input('email'))->first();
 
         if ($exist) {
             return redirect()->route('invite')
-                ->with($this->toastr->error('The email address your trying to send a invite to has already been sent one.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('The email address your trying to send a invite to has already been sent one.', trans('toastr.error'), ['options']));
         }
 
         $code = Uuid::uuid4()->toString();
@@ -120,7 +120,7 @@ class InviteController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('invite')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             Mail::to($request->input('email'))->send(new InviteUser($invite));
             $invite->save();
@@ -132,7 +132,7 @@ class InviteController extends Controller
             \LogActivity::addToLog("Member {$user->username} has sent a invite to {$invite->email} .");
 
             return redirect()->route('invite')
-                ->with($this->toastr->success('Invite was sent successfully!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Invite was sent successfully!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -152,7 +152,7 @@ class InviteController extends Controller
 
         if ($invite->accepted_by !== null) {
             return redirect()->back()
-                ->with($this->toastr->error('The invite you are trying to resend has already been used.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('The invite you are trying to resend has already been used.', trans('toastr.error'), ['options']));
         }
 
         Mail::to($invite->email)->send(new InviteUser($invite));
@@ -161,7 +161,7 @@ class InviteController extends Controller
         \LogActivity::addToLog("Member {$user->username} has resent invite to {$invite->email} .");
 
         return redirect()->back()
-            ->with($this->toastr->success('Invite was resent successfully!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Invite was resent successfully!', trans('toastr.success'), ['options']));
     }
 
     /**

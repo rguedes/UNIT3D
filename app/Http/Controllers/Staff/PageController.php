@@ -79,12 +79,12 @@ class PageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_page_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $page->save();
 
             return redirect()->route('staff_page_index')
-                ->with($this->toastr->success('Page has been created successfully', 'Yay!', ['options']));
+                ->with($this->toastr->success('Page has been created successfully', trans('toastr.success'), ['options']));
         }
     }
 
@@ -127,12 +127,12 @@ class PageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_page_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $page->save();
 
             return redirect()->route('staff_page_index')
-                ->with($this->toastr->success('Page has been edited successfully', 'Yay!', ['options']));
+                ->with($this->toastr->success('Page has been edited successfully', trans('toastr.success'), ['options']));
         }
     }
 
@@ -149,6 +149,6 @@ class PageController extends Controller
         Page::findOrFail($id)->delete();
 
         return redirect()->route('staff_page_index')
-            ->with($this->toastr->success('Page has been deleted successfully', 'Yay!', ['options']));
+            ->with($this->toastr->success('Page has been deleted successfully', trans('toastr.success'), ['options']));
     }
 }

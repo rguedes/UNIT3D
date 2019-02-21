@@ -116,7 +116,7 @@ class PrivateMessageController extends Controller
             return view('pm.message', ['pm' => $pm, 'user' => $user]);
         } else {
             return redirect()->route('inbox')
-                ->with($this->toastr->error('What Are You Trying To Do Here!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('What Are You Trying To Do Here!', trans('toastr.error'), ['options']));
         }
     }
 
@@ -171,26 +171,26 @@ class PrivateMessageController extends Controller
             $recipient = User::where('id', '=', (int) $request->input('receiver_id'))->firstOrFail();
         } else {
             return redirect()->route('create', ['username' => auth()->user()->username, 'id' => auth()->user()->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         }
 
         if ($v->fails()) {
             if ($dest == 'profile') {
                 return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
-                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                    ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
             }
 
             return redirect()->route('create', ['username' => auth()->user()->username, 'id' => auth()->user()->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $pm->save();
             if ($dest == 'profile') {
                 return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
-                    ->with($this->toastr->success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+                    ->with($this->toastr->success('Your PM Was Sent Successfully!', trans('toastr.success'), ['options']));
             }
 
             return redirect()->route('inbox')
-                ->with($this->toastr->success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your PM Was Sent Successfully!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -227,12 +227,12 @@ class PrivateMessageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('inbox')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $pm->save();
 
             return redirect()->route('inbox')
-                ->with($this->toastr->success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your PM Was Sent Successfully!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -252,10 +252,10 @@ class PrivateMessageController extends Controller
             $pm->delete();
 
             return redirect()->route('inbox')
-                ->with($this->toastr->success('PM Was Deleted Successfully!', 'Yay!', ['options']));
+                ->with($this->toastr->success('PM Was Deleted Successfully!', trans('toastr.success'), ['options']));
         } else {
             return redirect()->route('inbox')
-                ->with($this->toastr->error('What Are You Trying To Do Here!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('What Are You Trying To Do Here!', trans('toastr.error'), ['options']));
         }
     }
 
@@ -274,6 +274,6 @@ class PrivateMessageController extends Controller
         }
 
         return redirect()->route('inbox')
-            ->with($this->toastr->success('Your Messages Have All Been Marked As Read!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Your Messages Have All Been Marked As Read!', trans('toastr.success'), ['options']));
     }
 }

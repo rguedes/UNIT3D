@@ -130,11 +130,11 @@ class BotsController extends Controller
             }
 
             return redirect()->route('Staff.bots.edit', ['id' => $id])
-                ->with($this->toastr->error($error, 'Whoops!', ['options']));
+                ->with($this->toastr->error($error, trans('toastr.error'), ['options']));
         }
 
         return redirect()->route('Staff.bots.edit', ['id' => $id])
-            ->with($this->toastr->success($success, 'Yay!', ['options']));
+            ->with($this->toastr->success($success, trans('toastr.success'), ['options']));
     }
 
     /**
@@ -149,7 +149,7 @@ class BotsController extends Controller
         $bot->delete();
 
         return redirect()->route('Staff.bots.index')
-            ->with($this->toastr->success('The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0', 'Yay!', ['options']));
+            ->with($this->toastr->success('The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -165,7 +165,7 @@ class BotsController extends Controller
         $bot->save();
 
         return redirect()->route('Staff.bots.index')
-            ->with($this->toastr->success('The Bot Has Been Disabled', 'Yay!', ['options']));
+            ->with($this->toastr->success('The Bot Has Been Disabled', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -181,6 +181,6 @@ class BotsController extends Controller
         $bot->save();
 
         return redirect()->route('Staff.bots.index')
-            ->with($this->toastr->success('The Bot Has Been Enabled', 'Yay!', ['options']));
+            ->with($this->toastr->success('The Bot Has Been Enabled', trans('toastr.success'), ['options']));
     }
 }

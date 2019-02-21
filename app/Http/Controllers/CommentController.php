@@ -83,7 +83,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
-                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', trans('toastr.error'), ['options']));
         }
 
         $comment = new Comment();
@@ -101,7 +101,7 @@ class CommentController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $comment->save();
 
@@ -157,7 +157,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
 
             return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
-                ->with($this->toastr->success('Your Comment Has Been Added!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your Comment Has Been Added!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -177,7 +177,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', trans('toastr.error'), ['options']));
         }
 
         $comment = new Comment();
@@ -195,7 +195,7 @@ class CommentController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $comment->save();
 
@@ -263,7 +263,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->success('Your Comment Has Been Added!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your Comment Has Been Added!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -283,7 +283,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('request', ['id' => $tr->id])
-                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', trans('toastr.error'), ['options']));
         }
 
         $comment = new Comment();
@@ -301,7 +301,7 @@ class CommentController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $tr->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $comment->save();
 
@@ -368,7 +368,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
 
             return redirect()->route('request', ['id' => $tr->id])
-                ->with($this->toastr->success('Your Comment Has Been Added!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your Comment Has Been Added!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -386,7 +386,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', trans('toastr.error'), ['options']));
         }
 
         $comment = new Comment();
@@ -408,7 +408,7 @@ class CommentController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $comment->save();
 
@@ -440,7 +440,7 @@ class CommentController extends Controller
             );
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->success('Your Comment Has Been Added!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your Comment Has Been Added!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -462,7 +462,7 @@ class CommentController extends Controller
         $comment->content = $content;
         $comment->save();
 
-        return back()->with($this->toastr->success('Comment Has Been Edited.', 'Yay!', ['options']));
+        return back()->with($this->toastr->success('Comment Has Been Edited.', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -480,6 +480,6 @@ class CommentController extends Controller
         abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
         $comment->delete();
 
-        return back()->with($this->toastr->success('Comment Has Been Deleted.', 'Yay!', ['options']));
+        return back()->with($this->toastr->success('Comment Has Been Deleted.', trans('toastr.success'), ['options']));
     }
 }

@@ -157,12 +157,12 @@ class GraveyardController extends Controller
 
         if ($resurrected) {
             return redirect()->route('graveyard.index')
-                ->with($this->toastr->error('Torrent Resurrection Failed! This torrent is already pending a resurrection.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Torrent Resurrection Failed! This torrent is already pending a resurrection.', trans('toastr.error'), ['options']));
         }
 
         if ($user->id === $torrent->user_id) {
             return redirect()->route('graveyard.index')
-                ->with($this->toastr->error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', trans('toastr.error'), ['options']));
         }
 
         $resurrection = new Graveyard();
@@ -178,12 +178,12 @@ class GraveyardController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('graveyard.index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $resurrection->save();
 
             return redirect()->route('graveyard.index')
-                ->with($this->toastr->success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', 'Yay!', ['options']));
+                ->with($this->toastr->success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', trans('toastr.success'), ['options']));
         }
     }
 
@@ -203,6 +203,6 @@ class GraveyardController extends Controller
         $resurrection->delete();
 
         return redirect()->route('graveyard.index')
-            ->with($this->toastr->success('Ressurection Successfully Canceled!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Ressurection Successfully Canceled!', trans('toastr.success'), ['options']));
     }
 }

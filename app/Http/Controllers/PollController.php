@@ -95,7 +95,7 @@ class PollController extends Controller
 
         if (Voter::where('user_id', '=', $user->id)->where('poll_id', '=', $poll->id)->exists()) {
             return redirect('poll/'.$poll->slug.'/result')
-                ->with($this->toastr->error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Bro have already vote on this poll. Your vote has not been counted.', trans('toastr.error'), ['options']));
         }
 
         if ($poll->ip_checking == 1) {
@@ -114,7 +114,7 @@ class PollController extends Controller
         );
 
         return redirect('poll/'.$poll->slug.'/result')
-            ->with($this->toastr->success('Your vote has been counted.', 'Yay!', ['options']));
+            ->with($this->toastr->success('Your vote has been counted.', trans('toastr.success'), ['options']));
     }
 
     /**

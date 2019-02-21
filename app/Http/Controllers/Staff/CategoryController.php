@@ -83,12 +83,12 @@ class CategoryController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_category_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $category->save();
 
             return redirect()->route('staff_category_index')
-                ->with($this->toastr->success('Category Successfully Added', 'Yay!', ['options']));
+                ->with($this->toastr->success('Category Successfully Added', trans('toastr.success'), ['options']));
         }
     }
 
@@ -135,12 +135,12 @@ class CategoryController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_category_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $category->save();
 
             return redirect()->route('staff_category_index')
-                ->with($this->toastr->success('Category Successfully Modified', 'Yay!', ['options']));
+                ->with($this->toastr->success('Category Successfully Modified', trans('toastr.success'), ['options']));
         }
     }
 
@@ -158,6 +158,6 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('staff_category_index')
-            ->with($this->toastr->success('Category Successfully Deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Category Successfully Deleted', trans('toastr.success'), ['options']));
     }
 }

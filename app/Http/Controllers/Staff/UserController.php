@@ -150,7 +150,7 @@ class UserController extends Controller
 
         if ($target >= $sender || ($sender == 0 && ($sendto == 6 || $sendto == 4 || $sendto == 10)) || ($sender == 1 && ($sendto == 4 || $sendto == 10))) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Are Not Authorized To Perform This Action!', trans('toastr.error'), ['options']));
         }
 
         $user->username = $request->input('username');
@@ -166,7 +166,7 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account.");
 
         return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
-            ->with($this->toastr->success('Account Was Updated Successfully!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Account Was Updated Successfully!', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -195,7 +195,7 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account permissions.");
 
         return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
-            ->with($this->toastr->success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
+            ->with($this->toastr->success('Account Permissions Succesfully Edited', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -220,7 +220,7 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
 
         return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
-            ->with($this->toastr->success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Account Password Was Updated Successfully!', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -314,10 +314,10 @@ class UserController extends Controller
 
         if ($user->delete()) {
             return redirect('staff_dashboard')
-                ->with($this->toastr->success('Account Has Been Removed', 'Yay!', ['options']));
+                ->with($this->toastr->success('Account Has Been Removed', trans('toastr.success'), ['options']));
         } else {
             return redirect('staff_dashboard')
-                ->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Something Went Wrong!', trans('toastr.error'), ['options']));
         }
     }
 
@@ -344,6 +344,6 @@ class UserController extends Controller
         }
 
         return redirect('staff_dashboard')
-            ->with($this->toastr->success('Unvalidated Accounts Are Now Validated', 'Yay!', ['options']));
+            ->with($this->toastr->success('Unvalidated Accounts Are Now Validated', trans('toastr.success'), ['options']));
     }
 }

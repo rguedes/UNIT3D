@@ -93,7 +93,7 @@ class ApplicationController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('application.create')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $application->save();
 
@@ -110,7 +110,7 @@ class ApplicationController extends Controller
             $application->urlProofs()->saveMany($urls);
 
             return redirect()->route('login')
-                ->with($this->toastr->success('Your Application Has Been Submitted. You will receive a email soon!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your Application Has Been Submitted. You will receive a email soon!', trans('toastr.success'), ['options']));
         }
     }
 }

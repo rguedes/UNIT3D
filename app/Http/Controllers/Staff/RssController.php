@@ -125,11 +125,11 @@ class RssController extends Controller
             }
 
             return redirect()->route('Staff.rss.create')
-                ->with($this->toastr->error($error, 'Whoops!', ['options']));
+                ->with($this->toastr->error($error, trans('toastr.error'), ['options']));
         }
 
         return redirect()->route('Staff.rss.index')
-            ->with($this->toastr->success($success, 'Yay!', ['options']));
+            ->with($this->toastr->success($success, trans('toastr.success'), ['options']));
     }
 
     /**
@@ -200,11 +200,11 @@ class RssController extends Controller
             }
 
             return redirect()->route('Staff.rss.edit', ['id' => $id])
-                ->with($this->toastr->error($error, 'Whoops!', ['options']));
+                ->with($this->toastr->error($error, trans('toastr.error'), ['options']));
         }
 
         return redirect()->route('Staff.rss.index')
-            ->with($this->toastr->success($success, 'Yay!', ['options']));
+            ->with($this->toastr->success($success, trans('toastr.success'), ['options']));
     }
 
     /**
@@ -219,6 +219,6 @@ class RssController extends Controller
         $rss->delete();
 
         return redirect()->route('Staff.rss.index')
-            ->with($this->toastr->success('RSS Feed Deleted!', 'Yay!', ['options']));
+            ->with($this->toastr->success('RSS Feed Deleted!', trans('toastr.success'), ['options']));
     }
 }

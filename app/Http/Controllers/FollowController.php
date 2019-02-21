@@ -47,7 +47,7 @@ class FollowController extends Controller
     {
         if (auth()->user()->id == $user->id) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error('Nice try, but sadly you can not follow yourself.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Nice try, but sadly you can not follow yourself.', trans('toastr.error'), ['options']));
         } elseif (! auth()->user()->isFollowing($user->id)) {
             $follow = new Follow();
             $follow->user_id = auth()->user()->id;
@@ -58,10 +58,10 @@ class FollowController extends Controller
             }
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('You are now following '.$user->username, 'Yay!', ['options']));
+                ->with($this->toastr->success('You are now following '.$user->username, trans('toastr.success'), ['options']));
         } else {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error('You are already following this user', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You are already following this user', trans('toastr.error'), ['options']));
         }
     }
 
@@ -82,10 +82,10 @@ class FollowController extends Controller
             }
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('You are no longer following '.$user->username, 'Yay!', ['options']));
+                ->with($this->toastr->success('You are no longer following '.$user->username, trans('toastr.success'), ['options']));
         } else {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error('You are not following this user to begin with', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You are not following this user to begin with', trans('toastr.error'), ['options']));
         }
     }
 }

@@ -82,12 +82,12 @@ class ImageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('add_image', ['id' => $request->input('album_id')])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $image->save();
 
             return redirect()->route('show_album', ['id' => $request->input('album_id')])
-                ->with($this->toastr->success('Your image has successfully published!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your image has successfully published!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -113,7 +113,7 @@ class ImageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('gallery')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $image->save();
 
@@ -160,6 +160,6 @@ class ImageController extends Controller
         $image->delete();
 
         return redirect()->route('show_album', ['id' => $image->album_id])
-            ->with($this->toastr->success('Image has successfully been deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Image has successfully been deleted', trans('toastr.success'), ['options']));
     }
 }

@@ -383,7 +383,7 @@ class ForumController extends Controller
         $category = Forum::findOrFail($forum->id);
         if ($category->getPermission()->show_forum != true) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Do Not Have Access To This Category!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Do Not Have Access To This Category!', trans('toastr.error'), ['options']));
         }
 
         // Fetch topics->posts in descending order
@@ -428,7 +428,7 @@ class ForumController extends Controller
         $category = Forum::findOrFail($forum->parent_id);
         if ($category->getPermission()->show_forum != true) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Do Not Have Access To This Forum!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Do Not Have Access To This Forum!', trans('toastr.error'), ['options']));
         }
 
         // Fetch topics->posts in descending order
@@ -473,7 +473,7 @@ class ForumController extends Controller
         if ($category->getPermission()->read_topic != true) {
             // Redirect him to the forum index
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Do Not Have Access To Read This Topic!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Do Not Have Access To Read This Topic!', trans('toastr.error'), ['options']));
         }
 
         // Increment view
@@ -508,7 +508,7 @@ class ForumController extends Controller
         // The user has the right to create a topic here?
         if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! auth()->user()->group->is_modo)) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Reply To This Topic!', trans('toastr.error'), ['options']));
         }
 
         $post = new Post();
@@ -524,7 +524,7 @@ class ForumController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $post->save();
 
@@ -614,7 +614,7 @@ class ForumController extends Controller
             $user->addProgress(new UserMade900Posts(), 1);
 
             return redirect($realUrl)
-                ->with($this->toastr->success('Post Successfully Posted', 'Yay!', ['options']));
+                ->with($this->toastr->success('Post Successfully Posted', trans('toastr.success'), ['options']));
         }
     }
 
@@ -635,7 +635,7 @@ class ForumController extends Controller
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Cannot Start A New Topic Here!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Start A New Topic Here!', trans('toastr.error'), ['options']));
         }
 
         return view('forum.new_topic', [
@@ -663,7 +663,7 @@ class ForumController extends Controller
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Cannot Start A New Topic Here!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Start A New Topic Here!', trans('toastr.error'), ['options']));
         }
 
         // Create The Topic
@@ -693,7 +693,7 @@ class ForumController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $topic->save();
 
@@ -710,7 +710,7 @@ class ForumController extends Controller
 
             if ($v->fails()) {
                 return redirect()->route('forum_index')
-                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                    ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
             } else {
                 $post->save();
                 $topic->num_post = 1;
@@ -749,7 +749,7 @@ class ForumController extends Controller
                 $user->addProgress(new UserMade900Posts(), 1);
 
                 return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                    ->with($this->toastr->success('Topic Created Successfully!', 'Yay!', ['options']));
+                    ->with($this->toastr->success('Topic Created Successfully!', trans('toastr.success'), ['options']));
             }
         }
     }
@@ -792,7 +792,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->success('Topic Successfully Edited', 'Yay!', ['options']));
+            ->with($this->toastr->success('Topic Successfully Edited', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -838,7 +838,7 @@ class ForumController extends Controller
         $post->save();
 
         return redirect($postUrl)
-            ->with($this->toastr->success('Post Successfully Edited!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Post Successfully Edited!', trans('toastr.success'), ['options']));
     }
 
     /**

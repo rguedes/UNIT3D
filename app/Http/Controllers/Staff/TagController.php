@@ -60,12 +60,12 @@ class TagController extends Controller
 
         if ($v->fails()) {
             return redirect()->back()
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with(Toastr::error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $tag->save();
 
             return redirect()->route('staff_tag_index')
-                ->with(Toastr::success('Tag Successfully Added', 'Yay!', ['options']));
+                ->with(Toastr::success('Tag Successfully Added', trans('toastr.success'), ['options']));
         }
     }
 
@@ -104,12 +104,12 @@ class TagController extends Controller
 
         if ($v->fails()) {
             return redirect()->back()
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with(Toastr::error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $tag->save();
 
             return redirect()->route('staff_tag_index')
-                ->with(Toastr::success('Tag Successfully Modified', 'Yay!', ['options']));
+                ->with(Toastr::success('Tag Successfully Modified', trans('toastr.success'), ['options']));
         }
     }
 }

@@ -62,6 +62,6 @@ class ActivityLogController extends Controller
         $activity->delete();
 
         return redirect()->route('activity.index')
-            ->with($this->toastr->success('Activity Record Has Successfully Been Deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Successfully Deleted', trans('toastr.success'), ['options']));
     }
 }

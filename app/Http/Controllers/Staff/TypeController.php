@@ -79,12 +79,12 @@ class TypeController extends Controller
 
         if ($v->fails()) {
             return redirect()->back()
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $type->save();
 
             return redirect()->route('staff_type_index')
-                ->with($this->toastr->success('Type Successfully Added', 'Yay!', ['options']));
+                ->with($this->toastr->success('Type Successfully Added', trans('toastr.success'), ['options']));
         }
     }
 
@@ -127,12 +127,12 @@ class TypeController extends Controller
 
         if ($v->fails()) {
             return redirect()->back()
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $type->save();
 
             return redirect()->route('staff_type_index')
-                ->with($this->toastr->success('Type Successfully Modified', 'Yay!', ['options']));
+                ->with($this->toastr->success('Type Successfully Modified', trans('toastr.success'), ['options']));
         }
     }
 
@@ -150,6 +150,6 @@ class TypeController extends Controller
         $type->delete();
 
         return redirect()->route('staff_type_index')
-            ->with($this->toastr->success('Type Successfully Deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Type Successfully Deleted', trans('toastr.success'), ['options']));
     }
 }

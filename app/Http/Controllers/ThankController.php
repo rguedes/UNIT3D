@@ -50,7 +50,7 @@ class ThankController extends Controller
         $thank = Thank::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         if ($thank) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('You Have Already Thanked On This Torrent!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Have Already Thanked On This Torrent!', trans('toastr.error'), ['options']));
         }
 
         $thank = new Thank();
@@ -64,6 +64,6 @@ class ThankController extends Controller
         }
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-            ->with($this->toastr->success('Your Thank Was Successfully Applied!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Your Thank Was Successfully Applied!', trans('toastr.success'), ['options']));
     }
 }

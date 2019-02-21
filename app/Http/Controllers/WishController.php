@@ -67,14 +67,14 @@ class WishController extends Controller
         if ($this->wish->exists($uid, $imdb)) {
             return redirect()
                 ->route('wishlist', ['id' => $uid])
-                ->with($this->toastr->error('Wish already exists!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Wish already exists!', trans('toastr.error'), ['options']));
         }
 
         $omdb = $this->wish->omdbRequest($imdb);
         if ($omdb === null || $omdb === false) {
             return redirect()
                 ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
-                ->with($this->toastr->error('IMDB Bad Request!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('IMDB Bad Request!', trans('toastr.error'), ['options']));
         }
 
         $source = $this->wish->getSource($imdb);
@@ -89,7 +89,7 @@ class WishController extends Controller
 
         return redirect()
             ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
-            ->with($this->toastr->success('Wish Successfully Added!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Wish Successfully Added!', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -106,6 +106,6 @@ class WishController extends Controller
 
         return redirect()
             ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
-            ->with($this->toastr->success('Wish Successfully Removed!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Wish Successfully Removed!', trans('toastr.success'), ['options']));
     }
 }

@@ -60,6 +60,6 @@ class ContactController extends Controller
         Mail::to($user->email, $user->username)->send(new Contact($input));
 
         return redirect()->route('home')
-            ->with($this->toastr->success('Your Message Was Successfully Sent', 'Yay!', ['options']));
+            ->with($this->toastr->success('Your Message Was Successfully Sent', trans('toastr.success'), ['options']));
     }
 }

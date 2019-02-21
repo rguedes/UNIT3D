@@ -97,7 +97,7 @@ class GroupsController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_groups_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $group->save();
 
@@ -113,7 +113,7 @@ class GroupsController extends Controller
             }
 
             return redirect()->route('staff_groups_index')
-                ->with($this->toastr->success('Group Was Created Successfully!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Group Was Created Successfully!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -173,12 +173,12 @@ class GroupsController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_groups_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $group->save();
 
             return redirect()->route('staff_groups_index')
-                ->with($this->toastr->success('Group Was Updated Successfully!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Group Was Updated Successfully!', trans('toastr.success'), ['options']));
         }
     }
 }

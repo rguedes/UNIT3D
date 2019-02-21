@@ -73,13 +73,13 @@ class GiftController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('systemGift')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $recipient = User::where('username', 'LIKE', $username)->first();
 
             if (! $recipient) {
                 return redirect()->route('systemGift')
-                    ->with($this->toastr->error('Unable To Find Specified User', 'Whoops!', ['options']));
+                    ->with($this->toastr->error('Unable To Find Specified User', trans('toastr.error'), ['options']));
             }
 
             $recipient->seedbonus += $seedbonus;
@@ -100,7 +100,7 @@ class GiftController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has sent a system gift to {$recipient->username} account.");
 
             return redirect()->route('systemGift')
-                ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
+                ->with($this->toastr->success('Gift Sent', trans('toastr.success'), ['options']));
         }
     }
 }

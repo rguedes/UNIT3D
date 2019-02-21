@@ -987,7 +987,7 @@ class TorrentController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $torrent->save();
 
@@ -1000,7 +1000,7 @@ class TorrentController extends Controller
             }
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->success('Successfully Edited!!!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Successfully Edited!!!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -1069,7 +1069,7 @@ class TorrentController extends Controller
                 Torrent::withAnyStatus()->where('id', '=', $id)->delete();
 
                 return redirect('/torrents')
-                    ->with($this->toastr->success('Torrent Has Been Deleted!', 'Yay!', ['options']));
+                    ->with($this->toastr->success('Torrent Has Been Deleted!', trans('toastr.success'), ['options']));
             }
         } else {
             $errors = '';
@@ -1079,7 +1079,7 @@ class TorrentController extends Controller
             \Log::notice("Deletion of torrent failed due to: \n\n{$errors}");
 
             return redirect()->back()
-                ->with($this->toastr->error('Unable to delete Torrent', 'Error', ['options']));
+                ->with($this->toastr->error('Unable to delete Torrent', trans('toastr.error'), ['options']));
         }
     }
 
@@ -1156,13 +1156,13 @@ class TorrentController extends Controller
                 'categories' => Category::all()->sortBy('position'),
                 'types'      => Type::all()->sortBy('position'),
                 'user'       => $user, ])
-                ->with($this->toastr->error('You Must Provide A Torrent File For Upload!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Must Provide A Torrent File For Upload!', trans('toastr.error'), ['options']));
         } elseif ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
             return view('torrent.upload', [
                 'categories' => Category::all()->sortBy('position'),
                 'types'      => Type::all()->sortBy('position'),
                 'user'       => $user, ])
-                ->with($this->toastr->error('A Error Has Occurred!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('A Error Has Occurred!', trans('toastr.error'), ['options']));
         }
 
         // Deplace and decode the torrent temporarily
@@ -1230,7 +1230,7 @@ class TorrentController extends Controller
             }
 
             return redirect()->route('upload_form')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']))->withInput();
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']))->withInput();
         } else {
             // Save The Torrent
             $torrent->save();
@@ -1301,7 +1301,7 @@ class TorrentController extends Controller
             }
 
             return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your torrent file is ready to be downloaded and seeded!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -1342,19 +1342,19 @@ class TorrentController extends Controller
         // User's ratio is too low
         if ($user->getRatio() < config('other.ratio')) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('Your Ratio Is To Low To Download!!!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your Ratio Is To Low To Download!!!', trans('toastr.error'), ['options']));
         }
 
         // User's download rights are revoked
         if ($user->can_download == 0 && $torrent->user_id != $user->id) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('Your Download Rights Have Been Revoked!!!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your Download Rights Have Been Revoked!!!', trans('toastr.error'), ['options']));
         }
 
         // Torrent Status Is Rejected
         if ($torrent->isRejected()) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('This Torrent Has Been Rejected By Staff', 'Whoops!', ['options']));
+                ->with($this->toastr->error('This Torrent Has Been Rejected By Staff', trans('toastr.error'), ['options']));
         }
 
         // Define the filename for the download
@@ -1425,7 +1425,7 @@ class TorrentController extends Controller
         }
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-            ->with($this->toastr->success('Torrent Has Been Bumped To Top Successfully!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Torrent Has Been Bumped To Top Successfully!', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -1441,12 +1441,12 @@ class TorrentController extends Controller
 
         if (auth()->user()->isBookmarked($torrent->id)) {
             return redirect()->back()
-                ->with($this->toastr->error('Torrent has already been bookmarked.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Torrent has already been bookmarked.', trans('toastr.error'), ['options']));
         } else {
             auth()->user()->bookmarks()->attach($torrent->id);
 
             return redirect()->back()
-                ->with($this->toastr->success('Torrent Has Been Bookmarked Successfully!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Torrent Has Been Bookmarked Successfully!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -1463,7 +1463,7 @@ class TorrentController extends Controller
         auth()->user()->bookmarks()->detach($torrent->id);
 
         return redirect()->back()
-            ->with($this->toastr->success('Torrent Has Been Unbookmarked Successfully!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Torrent Has Been Unbookmarked Successfully!', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -1491,7 +1491,7 @@ class TorrentController extends Controller
         \LogActivity::addToLog('Staff Member '.auth()->user()->username." has stickied torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-            ->with($this->toastr->success('Torrent Sticky Status Has Been Adjusted!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Torrent Sticky Status Has Been Adjusted!', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -1530,7 +1530,7 @@ class TorrentController extends Controller
         \LogActivity::addToLog('Staff Member '.$user->username." has granted freeleech on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-            ->with($this->toastr->success('Torrent FL Has Been Adjusted!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Torrent FL Has Been Adjusted!', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -1569,10 +1569,10 @@ class TorrentController extends Controller
             \LogActivity::addToLog('Staff Member '.auth()->user()->username." has featured torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->success('Torrent Is Now Featured!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Torrent Is Now Featured!', trans('toastr.success'), ['options']));
         } else {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('Torrent Is Already Featured!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Torrent Is Already Featured!', trans('toastr.error'), ['options']));
         }
     }
 
@@ -1610,7 +1610,7 @@ class TorrentController extends Controller
         \LogActivity::addToLog('Staff Member '.$user->username." has granted double upload on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-            ->with($this->toastr->success('Torrent DoubleUpload Has Been Adjusted!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Torrent DoubleUpload Has Been Adjusted!', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -1645,10 +1645,10 @@ class TorrentController extends Controller
             \LogActivity::addToLog("Member {$user->username} has requested a reseed request on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->success('A notification has been sent to all users that downloaded this torrent along with original uploader!', 'Yay!', ['options']));
+                ->with($this->toastr->success('A notification has been sent to all users that downloaded this torrent along with original uploader!', trans('toastr.success'), ['options']));
         } else {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('This torrent doesnt meet the requirments for a reseed request.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('This torrent doesnt meet the requirments for a reseed request.', trans('toastr.error'), ['options']));
         }
     }
 
@@ -1679,10 +1679,10 @@ class TorrentController extends Controller
             \LogActivity::addToLog("Member {$user->username} has used a freeleech token on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->success('You Have Successfully Activated A Freeleech Token For This Torrent!', 'Yay!', ['options']));
+                ->with($this->toastr->success('You Have Successfully Activated A Freeleech Token For This Torrent!', trans('toastr.success'), ['options']));
         } else {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.', trans('toastr.error'), ['options']));
         }
     }
 }

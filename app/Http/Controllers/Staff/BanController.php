@@ -89,7 +89,7 @@ class BanController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $user->save();
             $ban->save();
@@ -101,7 +101,7 @@ class BanController extends Controller
             Mail::to($user->email)->send(new BanUser($user->email, $ban));
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('User Is Now Banned!', 'Yay!', ['options']));
+                ->with($this->toastr->success('User Is Now Banned!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -142,7 +142,7 @@ class BanController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $user->save();
             $ban->save();
@@ -154,7 +154,7 @@ class BanController extends Controller
             Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));
+                ->with($this->toastr->success('User Is Now Relieved Of His Ban!', trans('toastr.success'), ['options']));
         }
     }
 }

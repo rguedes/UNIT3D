@@ -104,7 +104,7 @@ class ForumController extends Controller
         }
 
         return redirect()->route('staff_forum_index')
-                ->with($this->toastr->success('Forum has been created successfully', 'Yay!', ['options']));
+                ->with($this->toastr->success('Forum has been created successfully', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -176,7 +176,7 @@ class ForumController extends Controller
         }
 
         return redirect()->route('staff_forum_index')
-                ->with($this->toastr->success('Forum has been edited successfully', 'Yay!', ['options']));
+                ->with($this->toastr->success('Forum has been edited successfully', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -236,6 +236,6 @@ class ForumController extends Controller
         }
 
         return redirect()->route('staff_forum_index')
-            ->with($this->toastr->success('Forum has been deleted successfully', 'Yay!', ['options']));
+            ->with($this->toastr->success('Forum has been deleted successfully', trans('toastr.success'), ['options']));
     }
 }

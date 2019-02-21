@@ -75,7 +75,7 @@ class NoteController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $note->save();
 
@@ -83,7 +83,7 @@ class NoteController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has added a note on {$user->username} account.");
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('Note Has Successfully Posted', 'Yay!', ['options']));
+                ->with($this->toastr->success('Note Has Successfully Posted', trans('toastr.success'), ['options']));
         }
     }
 
@@ -100,6 +100,6 @@ class NoteController extends Controller
         $note->delete();
 
         return redirect()->back()
-            ->with($this->toastr->success('Note Has Successfully Been Deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Note Has Successfully Been Deleted', trans('toastr.success'), ['options']));
     }
 }

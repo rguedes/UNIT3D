@@ -56,6 +56,6 @@ class FlushController extends Controller
         }
 
         return redirect('staff_dashboard')
-            ->with($this->toastr->success('Ghost Peers Have Been Flushed', 'Yay!', ['options']));
+            ->with($this->toastr->success('Ghost Peers Have Been Flushed', trans('toastr.success'), ['options']));
     }
 }

@@ -56,9 +56,9 @@ class ActivationController extends Controller
 
             $activation->delete();
 
-            return redirect()->route('login')->with($this->toastr->success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
+            return redirect()->route('login')->with($this->toastr->success('Account Confirmed! You May Now Login!', trans('toastr.success'), ['options']));
         } else {
-            return redirect()->route('login')->with($this->toastr->error('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
+            return redirect()->route('login')->with($this->toastr->error('Banned or Invalid Token Or Account Already Confirmed!', trans('toastr.error'), ['options']));
         }
     }
 }

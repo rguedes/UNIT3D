@@ -100,10 +100,10 @@ class ModerationController extends Controller
             TorrentHelper::approveHelper($torrent->slug, $torrent->id);
 
             return redirect()->route('moderation')
-                ->with($this->toastr->success('Torrent Approved', 'Yay!', ['options']));
+                ->with($this->toastr->success('Torrent Approved', trans('toastr.success'), ['options']));
         } else {
             return redirect()->back()
-                ->with($this->toastr->error('Torrent Already Approved', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Torrent Already Approved', trans('toastr.error'), ['options']));
         }
     }
 
@@ -124,7 +124,7 @@ class ModerationController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('moderation')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $user = auth()->user();
             $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
@@ -138,7 +138,7 @@ class ModerationController extends Controller
             $pm->save();
 
             return redirect()->route('moderation')
-                ->with($this->toastr->success('Torrent Postponed', 'Yay!', ['options']));
+                ->with($this->toastr->success('Torrent Postponed', trans('toastr.success'), ['options']));
         }
     }
 
@@ -159,7 +159,7 @@ class ModerationController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('moderation')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $user = auth()->user();
             $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
@@ -173,7 +173,7 @@ class ModerationController extends Controller
             $pm->save();
 
             return redirect()->route('moderation')
-                ->with($this->toastr->success('Torrent Rejected', 'Yay!', ['options']));
+                ->with($this->toastr->success('Torrent Rejected', trans('toastr.success'), ['options']));
         }
     }
 
@@ -198,6 +198,6 @@ class ModerationController extends Controller
         $torrentRequest->save();
 
         return redirect()->route('request', ['id' => $id])
-            ->with($this->toastr->success('The request has been reset!', 'Yay!', ['options']));
+            ->with($this->toastr->success('The request has been reset!', trans('toastr.success'), ['options']));
     }
 }

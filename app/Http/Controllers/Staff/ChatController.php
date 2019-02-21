@@ -80,12 +80,12 @@ class ChatController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('chatManager')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $chatroom->save();
 
             return redirect()->route('chatManager')
-                ->with($this->toastr->success('Chatroom Successfully Added', 'Yay!', ['options']));
+                ->with($this->toastr->success('Chatroom Successfully Added', trans('toastr.success'), ['options']));
         }
     }
 
@@ -108,12 +108,12 @@ class ChatController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('chatManager')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $chatroom->save();
 
             return redirect()->route('chatManager')
-                ->with($this->toastr->success('Chatroom Successfully Modified', 'Yay!', ['options']));
+                ->with($this->toastr->success('Chatroom Successfully Modified', trans('toastr.success'), ['options']));
         }
     }
 
@@ -130,7 +130,7 @@ class ChatController extends Controller
         $chatroom->delete();
 
         return redirect()->route('chatManager')
-            ->with($this->toastr->success('Chatroom Successfully Deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Chatroom Successfully Deleted', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -155,12 +155,12 @@ class ChatController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('chatManager')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $chatstatus->save();
 
             return redirect()->route('chatManager')
-                ->with($this->toastr->success('Chat Status Successfully Added', 'Yay!', ['options']));
+                ->with($this->toastr->success('Chat Status Successfully Added', trans('toastr.success'), ['options']));
         }
     }
 
@@ -187,12 +187,12 @@ class ChatController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('chatManager')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), trans('toastr.error'), ['options']));
         } else {
             $chatstatus->save();
 
             return redirect()->route('chatManager')
-                ->with($this->toastr->success('Chat Status Successfully Modified', 'Yay!', ['options']));
+                ->with($this->toastr->success('Chat Status Successfully Modified', trans('toastr.success'), ['options']));
         }
     }
 
@@ -209,7 +209,7 @@ class ChatController extends Controller
         $chatstatus->delete();
 
         return redirect()->route('chatManager')
-            ->with($this->toastr->success('Chat Status Successfully Deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Chat Status Successfully Deleted', trans('toastr.success'), ['options']));
     }
 
     /**
@@ -231,6 +231,6 @@ class ChatController extends Controller
         );
 
         return redirect('staff_dashboard')
-            ->with($this->toastr->success('Chatbox Has Been Flushed', 'Yay!', ['options']));
+            ->with($this->toastr->success('Chatbox Has Been Flushed', trans('toastr.success'), ['options']));
     }
 }

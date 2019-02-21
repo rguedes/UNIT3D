@@ -52,10 +52,10 @@ class LikeController extends Controller
 
         if ($like || $dislike) {
             return redirect($postUrl)
-                ->with($this->toastr->error('You have already liked/disliked this post!', 'Bro', ['options']));
+                ->with($this->toastr->error('You have already liked/disliked this post!', trans('toastr.error'), ['options']));
         } elseif ($user->id == $post->user_id) {
             return redirect($postUrl)
-                ->with($this->toastr->error('You cannot like your own post!', 'Umm', ['options']));
+                ->with($this->toastr->error('You cannot like your own post!', trans('toastr.error'), ['options']));
         } else {
             $new = new Like();
             $new->user_id = $user->id;
@@ -64,7 +64,7 @@ class LikeController extends Controller
             $new->save();
 
             return redirect($postUrl)
-                ->with($this->toastr->success('Like Successfully Applied!', 'Yay', ['options']));
+                ->with($this->toastr->success('Like Successfully Applied!', trans('toastr.success'), ['options']));
         }
     }
 
@@ -86,10 +86,10 @@ class LikeController extends Controller
 
         if ($like || $dislike) {
             return redirect($postUrl)
-                ->with($this->toastr->error('You have already liked/disliked this post!', 'Bro', ['options']));
+                ->with($this->toastr->error('You have already liked/disliked this post!', trans('toastr.error'), ['options']));
         } elseif ($user->id == $post->user_id) {
             return redirect($postUrl)
-                ->with($this->toastr->error('You cannot dislike your own post!', 'Umm', ['options']));
+                ->with($this->toastr->error('You cannot dislike your own post!', trans('toastr.error'), ['options']));
         } else {
             $new = new Like();
             $new->user_id = $user->id;
@@ -98,7 +98,7 @@ class LikeController extends Controller
             $new->save();
 
             return redirect($postUrl)
-                ->with($this->toastr->success('Dislike Successfully Applied!', 'Yay', ['options']));
+                ->with($this->toastr->success('Dislike Successfully Applied!', trans('toastr.success'), ['options']));
         }
     }
 }

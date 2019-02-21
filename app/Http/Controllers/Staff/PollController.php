@@ -110,6 +110,6 @@ class PollController extends Controller
         );
 
         return redirect('poll/'.$poll->slug)
-            ->with($this->toastr->success('Your poll has been created.', 'Yay!', ['options']));
+            ->with($this->toastr->success('Your poll has been created.', trans('toastr.success'), ['options']));
     }
 }
