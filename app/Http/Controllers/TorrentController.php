@@ -13,29 +13,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Peer;
-use App\Type;
-use App\User;
-use App\History;
-use App\Torrent;
-use App\Warning;
-use App\Category;
 use Carbon\Carbon;
-use App\TagTorrent;
-use App\TorrentFile;
-use App\FreeleechToken;
-use App\PrivateMessage;
-use App\TorrentRequest;
-use App\BonTransactions;
-use App\FeaturedTorrent;
+use App\Models\Peer;
+use App\Models\Type;
+use App\Models\User;
+use App\Models\History;
+use App\Models\Torrent;
+use App\Models\Warning;
+use App\Models\Category;
 use App\Services\Bencode;
 use App\Helpers\MediaInfo;
-use App\PersonalFreeleech;
+use App\Models\TagTorrent;
+use App\Models\TorrentFile;
 use App\Bots\IRCAnnounceBot;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Helpers\TorrentHelper;
+use App\Models\FreeleechToken;
+use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
 use App\Services\TorrentTools;
+use App\Models\BonTransactions;
+use App\Models\FeaturedTorrent;
+use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\ChatRepository;
 use App\Notifications\NewReseedRequest;
@@ -839,7 +839,7 @@ class TorrentController extends Controller
         $user = auth()->user();
         $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $comments = $torrent->comments()->latest()->paginate(6);
+        $comments = $torrent->comments()->latest()->paginate(5);
         $total_tips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $user_tips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', auth()->user()->id)->sum('cost');
         $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
@@ -1094,7 +1094,7 @@ class TorrentController extends Controller
     public function peers($slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $peers = Peer::where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
+        $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
 
         return view('torrent.peers', ['torrent' => $torrent, 'peers' => $peers]);
     }
@@ -1110,7 +1110,7 @@ class TorrentController extends Controller
     public function history($slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $history = History::where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
+        $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
 
         return view('torrent.history', ['torrent' => $torrent, 'history' => $history]);
     }

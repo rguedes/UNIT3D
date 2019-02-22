@@ -197,7 +197,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/request/add', 'RequestController@addRequest')->name('add_request');
         Route::get('/request/{id}/edit', 'RequestController@editRequestForm')->name('edit_request_form');
         Route::post('/request/{id}/edit', 'RequestController@editRequest')->name('edit_request');
-        Route::get('/request/{id}', 'RequestController@request')->name('request');
+        Route::get('/request/{id}{hash?}', 'RequestController@request')->name('request');
         Route::get('/request/{id}/accept', 'RequestController@approveRequest')->name('approveRequest');
         Route::post('/request/{id}/delete', 'RequestController@deleteRequest')->name('deleteRequest');
         Route::post('/request/{id}/fill', 'RequestController@fillRequest')->name('fill_request');
@@ -211,7 +211,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/filterTorrents', 'TorrentController@faceted');
         Route::get('/filterSettings', 'TorrentController@filtered');
         Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
-        Route::get('/torrents/{slug}.{id}', 'TorrentController@torrent')->name('torrent');
+        Route::get('/torrents/{slug}.{id}{hash?}', 'TorrentController@torrent')->name('torrent');
         Route::get('/torrents/{slug}.{id}/peers', 'TorrentController@peers')->name('peers');
         Route::get('/torrents/{slug}.{id}/history', 'TorrentController@history')->name('history');
         Route::get('/upload/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
@@ -261,6 +261,7 @@ Route::group(['middleware' => 'language'], function () {
 
         Route::get('/{slug}.{id}/seeds', 'UserController@seeds')->name('user_seeds');
         Route::get('/{slug}.{id}/resurrections', 'UserController@resurrections')->name('user_resurrections');
+        Route::get('/{slug}.{id}/requested', 'UserController@requested')->name('user_requested');
         Route::get('/{slug}.{id}/active', 'UserController@active')->name('user_active');
         Route::get('/{slug}.{id}/torrents', 'UserController@torrents')->name('user_torrents');
         Route::get('/{slug}.{id}/uploads', 'UserController@uploads')->name('user_uploads');
@@ -297,6 +298,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/{slug}.{id}/settings/privacy/torrent', 'UserController@changeTorrent')->name('privacy_torrent');
         Route::post('/{slug}.{id}/settings/privacy/follower', 'UserController@changeFollower')->name('privacy_follower');
         Route::post('/{slug}.{id}/settings/privacy/achievement', 'UserController@changeAchievement')->name('privacy_achievement');
+        Route::post('/{slug}.{id}/settings/privacy/request', 'UserController@changeRequest')->name('privacy_request');
+        Route::post('/{slug}.{id}/settings/privacy/other', 'UserController@changeOther')->name('privacy_other');
         Route::post('/{slug}.{id}/settings/change_twostep', 'UserController@changeTwoStep')->name('change_twostep');
         Route::get('/{slug}.{id}/settings/hidden', 'UserController@makeHidden')->name('user_hidden');
         Route::get('/{slug}.{id}/settings/visible', 'UserController@makeVisible')->name('user_visible');

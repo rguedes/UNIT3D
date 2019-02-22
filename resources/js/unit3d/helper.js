@@ -196,6 +196,24 @@ class userFilterBuilder {
             }
         })();
 
+        var unfilled = (function () {
+            if ($("#unfilled").is(":checked")) {
+                return $("#unfilled").val();
+            }
+        })();
+
+        var filled = (function () {
+            if ($("#filled").is(":checked")) {
+                return $("#filled").val();
+            }
+        })();
+
+        var claimed = (function () {
+            if ($("#claimed").is(":checked")) {
+                return $("#claimed").val();
+            }
+        })();
+
         var search = $("#search").val();
 
         var sorting = $("#sorting").val();
@@ -219,6 +237,9 @@ class userFilterBuilder {
                 rewarded: rewarded,
                 notrewarded: notrewarded,
                 immune: immune,
+                claimed: claimed,
+                filled: filled,
+                unfilled: unfilled,
                 name: search,
                 pending: pending,
                 leeching: leeching,
@@ -827,6 +848,14 @@ $(document).ready(function () {
         $('#request-form-description').wysibb({});
         emoji.textcomplete()
     }
+    if($('#comments').length > 0) {
+        if (window.location.hash && window.location.hash.substring) {
+            let hash = window.location.hash.substring(1).split('/')[0];
+            if (hash == 'comments') {
+                $("#comments")[0].scrollIntoView();
+            }
+        }
+    }
     if(document.getElementById('facetedSearch')) {
         var facetedType = document.getElementById('facetedSearch').getAttribute('type');
         facetedSearch.init(facetedType);
@@ -843,8 +872,17 @@ $(document).ready(function () {
     torrentBookmark.update();
 });
 $(document).on('click', '.pagination a', function (e) {
-    if(!document.getElementById('facetedSearch') && !document.getElementById('userFilter')) return;
+
     e.preventDefault();
+
+    var url = $(this).attr('href');
+    if($('#comments').length > 0) {
+        window.location.href = url + '#comments';
+        return;
+    }
+
+    if(!document.getElementById('facetedSearch') && !document.getElementById('userFilter')) return;
+
     var sub = null;
     if (window.location.hash && window.location.hash.substring) {
         sub = window.location.hash.substring(1).split('/')[0];

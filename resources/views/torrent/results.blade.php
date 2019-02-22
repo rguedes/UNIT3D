@@ -96,7 +96,7 @@
 
                         <span data-toggle="tooltip" data-original-title="Bookmark" id="torrentBookmark{{ $torrent->id }}" torrent="{{ $torrent->id }}" state="{{ $torrent->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
 
-                        @php $history = \App\History::where('user_id', '=', $user->id)->where('info_hash', '=', $torrent->info_hash)->first(); @endphp
+                        @php $history = \App\Models\History::where('user_id', '=', $user->id)->where('info_hash', '=', $torrent->info_hash)->first(); @endphp
                         @if ($history)
                             @if ($history->seeder == 1 && $history->active == 1)
                                 <button class="btn btn-success btn-circle" type="button" data-toggle="tooltip"
@@ -180,8 +180,8 @@
                         </span>
 
                         <span class="badge-extra text-bold text-green">
-                            <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="@lang('common.comments')"></i>
-                            {{ $torrent->comments_count }}
+                            <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id, 'hash' => '#comments']) }}"><i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="@lang('common.comments')"></i>
+                                {{ $torrent->comments_count }}</a>
                         </span>
 
                         @if ($torrent->internal == 1)
@@ -220,7 +220,7 @@
                             </span>
                         @endif
 
-                        @php $freeleech_token = \App\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first(); @endphp
+                        @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first(); @endphp
                         @if ($freeleech_token)
                             <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-coins text-bold' data-toggle='tooltip' title=''
@@ -291,7 +291,7 @@
                             </span>
                         @endif
 
-                        @php $torrent_tags = App\TagTorrent::where('torrent_id', '=', $torrent->id)->get(); @endphp
+                        @php $torrent_tags = App\Models\TagTorrent::where('torrent_id', '=', $torrent->id)->get(); @endphp
                         @if ($torrent_tags)
                         @foreach($torrent_tags as $torrent_tag)
                             <span class="badge-extra text-bold">

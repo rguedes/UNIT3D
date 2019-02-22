@@ -12,13 +12,28 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Toastr;
-use App\Tag;
+use App\Models\Tag;
+use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class TagController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * RssController Constructor.
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Get All Tags.
      *
