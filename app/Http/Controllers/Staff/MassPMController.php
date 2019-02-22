@@ -79,7 +79,7 @@ class MassPMController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has sent a MassPM.");
 
             return redirect()->route('massPM')
-                ->with($this->toastr->success('MassPM Sent', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.masspm-sent'), trans('toastr.success'), ['options']));
         }
     }
 }

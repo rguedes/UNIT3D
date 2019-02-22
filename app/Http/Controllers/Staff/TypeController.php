@@ -84,7 +84,7 @@ class TypeController extends Controller
             $type->save();
 
             return redirect()->route('staff_type_index')
-                ->with($this->toastr->success('Type Successfully Added', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.type-created'), trans('toastr.success'), ['options']));
         }
     }
 
@@ -132,7 +132,7 @@ class TypeController extends Controller
             $type->save();
 
             return redirect()->route('staff_type_index')
-                ->with($this->toastr->success('Type Successfully Modified', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.type-updated'), trans('toastr.success'), ['options']));
         }
     }
 
@@ -150,6 +150,6 @@ class TypeController extends Controller
         $type->delete();
 
         return redirect()->route('staff_type_index')
-            ->with($this->toastr->success('Type Successfully Deleted', trans('toastr.success'), ['options']));
+            ->with($this->toastr->success(trans('toastr.type-deleted'), trans('toastr.success'), ['options']));
     }
 }

@@ -2265,7 +2265,7 @@ class UserController extends Controller
         if (file_exists($zip_file)) {
             return response()->download($zip_file)->deleteFileAfterSend(true);
         } else {
-            return back()->with($this->toastr->error('Something Went Wrong!', trans('toastr.error'), ['options']));
+            return back()->with($this->toastr->error(trans('toastr.wrong'), trans('toastr.error'), ['options']));
         }
     }
 }

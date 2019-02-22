@@ -113,7 +113,7 @@ class GroupsController extends Controller
             }
 
             return redirect()->route('staff_groups_index')
-                ->with($this->toastr->success('Group Was Created Successfully!', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.group-created'), trans('toastr.success'), ['options']));
         }
     }
 
@@ -178,7 +178,7 @@ class GroupsController extends Controller
             $group->save();
 
             return redirect()->route('staff_groups_index')
-                ->with($this->toastr->success('Group Was Updated Successfully!', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.group-updated'), trans('toastr.success'), ['options']));
         }
     }
 }

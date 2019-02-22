@@ -84,7 +84,7 @@ class ReportController extends Controller
 
         if ($report->solved == 1) {
             return redirect()->route('getReports')
-                ->with($this->toastr->error('This Report Has Already Been Solved', trans('toastr.error'), ['options']));
+                ->with($this->toastr->error(trans('toastr.report-already-solved'), trans('toastr.error'), ['options']));
         }
 
         $report->verdict = $request->input('verdict');
@@ -105,6 +105,6 @@ class ReportController extends Controller
         $pm->save();
 
         return redirect()->route('getReports')
-            ->with($this->toastr->success('Report has been successfully resolved', trans('toastr.success'), ['options']));
+            ->with($this->toastr->success(trans('toastr.report-solved'), trans('toastr.success'), ['options']));
     }
 }

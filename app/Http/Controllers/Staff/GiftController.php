@@ -79,7 +79,7 @@ class GiftController extends Controller
 
             if (! $recipient) {
                 return redirect()->route('systemGift')
-                    ->with($this->toastr->error('Unable To Find Specified User', trans('toastr.error'), ['options']));
+                    ->with($this->toastr->error(trans('toastr.user-not-found'), trans('toastr.error'), ['options']));
             }
 
             $recipient->seedbonus += $seedbonus;
@@ -100,7 +100,7 @@ class GiftController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has sent a system gift to {$recipient->username} account.");
 
             return redirect()->route('systemGift')
-                ->with($this->toastr->success('Gift Sent', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.gift-sent'), trans('toastr.success'), ['options']));
         }
     }
 }

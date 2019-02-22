@@ -98,7 +98,7 @@ class ArticleController extends Controller
             $article->save();
 
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->success('Your article has successfully published!', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.article-created'), trans('toastr.success'), ['options']));
         }
     }
 
@@ -157,7 +157,7 @@ class ArticleController extends Controller
             $article->save();
 
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->success('Your article changes have successfully published!', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.article-updated'), trans('toastr.success'), ['options']));
         }
     }
 
@@ -175,6 +175,6 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->route('staff_article_index')
-            ->with($this->toastr->success('Article has successfully been deleted', trans('toastr.success'), ['options']));
+            ->with($this->toastr->success(trans('toastr.article-deleted'), trans('toastr.success'), ['options']));
     }
 }

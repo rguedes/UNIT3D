@@ -88,7 +88,7 @@ class CategoryController extends Controller
             $category->save();
 
             return redirect()->route('staff_category_index')
-                ->with($this->toastr->success('Category Successfully Added', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.category-created'), trans('toastr.success'), ['options']));
         }
     }
 
@@ -140,7 +140,7 @@ class CategoryController extends Controller
             $category->save();
 
             return redirect()->route('staff_category_index')
-                ->with($this->toastr->success('Category Successfully Modified', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.category-updated'), trans('toastr.success'), ['options']));
         }
     }
 
@@ -158,6 +158,6 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('staff_category_index')
-            ->with($this->toastr->success('Category Successfully Deleted', trans('toastr.success'), ['options']));
+            ->with($this->toastr->success(trans('toastr.category-deleted'), trans('toastr.success'), ['options']));
     }
 }

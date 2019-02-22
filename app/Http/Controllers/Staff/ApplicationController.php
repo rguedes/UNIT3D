@@ -120,11 +120,11 @@ class ApplicationController extends Controller
                 \LogActivity::addToLog("Staff member {$user->username} has approved {$application->email} application.");
 
                 return redirect()->route('staff.applications.index')
-                    ->with($this->toastr->success('Application Approved', trans('toastr.success'), ['options']));
+                    ->with($this->toastr->success(trans('toastr.application-approved'), trans('toastr.success'), ['options']));
             }
         } else {
             return redirect()->back()
-                ->with($this->toastr->error('Application Already Approved', trans('toastr.error'), ['options']));
+                ->with($this->toastr->error(trans('toastr.application-already-approved'), trans('toastr.error'), ['options']));
         }
     }
 
@@ -149,10 +149,10 @@ class ApplicationController extends Controller
             Mail::to($application->email)->send(new DenyApplication($denied_message));
 
             return redirect()->route('staff.applications.index')
-                ->with($this->toastr->info('Application Rejected', trans('toastr.info'), ['options']));
+                ->with($this->toastr->info(trans('toastr.application-rejected'), trans('toastr.info'), ['options']));
         } else {
             return redirect()->back()
-                ->with($this->toastr->error('Application Already Rejected', trans('toastr.error'), ['options']));
+                ->with($this->toastr->error(trans('toastr.application-already-rejected'), trans('toastr.error'), ['options']));
         }
     }
 }

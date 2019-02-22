@@ -101,7 +101,7 @@ class BanController extends Controller
             Mail::to($user->email)->send(new BanUser($user->email, $ban));
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('User Is Now Banned!', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.user-banned'), trans('toastr.success'), ['options']));
         }
     }
 
@@ -154,7 +154,7 @@ class BanController extends Controller
             Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('User Is Now Relieved Of His Ban!', trans('toastr.success'), ['options']));
+                ->with($this->toastr->success(trans('toastr.user-unbanned'), trans('toastr.success'), ['options']));
         }
     }
 }
