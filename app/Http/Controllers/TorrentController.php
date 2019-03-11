@@ -864,7 +864,7 @@ class TorrentController extends Controller
         
         if ($movie->recommendations) {
             $movie->recommendations['results'] = array_map(function($recomentaion) {
-                $recomentaion['exists'] = Torrent::where("tmdb", $recomentaion['id'])->get()->isNotEmpty();
+                $recomentaion['exists'] = Torrent::where("tmdb", "=", $recomentaion['id'])->get()->isNotEmpty();
                 return $recomentaion;
             }, $movie->recommendations['results']);
         }
